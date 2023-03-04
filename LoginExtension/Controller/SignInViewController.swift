@@ -41,7 +41,11 @@ final class SignInViewController: UIViewController {
     private let emailTextField = AuthenticationTextField(placeholder: "Email")
     private let usernameTextField = AuthenticationTextField(placeholder: "Name")
     private let nameTextField = AuthenticationTextField(placeholder: "Username")
-    private let passwordTextField = AuthenticationTextField(placeholder: "Password")
+    private let passwordTextField: AuthenticationTextField = {
+        let textField = AuthenticationTextField(placeholder: "Password")
+        textField.isSecureTextEntry = true
+        return textField
+    }()
     private lazy var registerButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign in", for: .normal)
@@ -70,7 +74,9 @@ final class SignInViewController: UIViewController {
 // MARK: - Selector
 extension SignInViewController{
     @objc private func handlePhoto(_ sender: UIButton){
-        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        self.present(picker,animated: true)
     }
     @objc private func handleLoginPage(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
@@ -148,3 +154,16 @@ extension SignInViewController{
     }
 }
 
+//MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
+extension SignInViewController: UIImagePickerControllerDelegate , UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as! UIImage
+        addCameraButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        addCameraButton.layer.cornerRadius = 150 / 2
+        addCameraButton.clipsToBounds = true
+        addCameraButton.layer.borderColor = UIColor.white.cgColor
+        addCameraButton.layer.borderWidth = 2
+        addCameraButton.contentMode = .scaleAspectFill
+        dismiss(animated: true)
+    }
+}
