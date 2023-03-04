@@ -10,6 +10,7 @@ import SnapKit
 
 final class LoginViewController: UIViewController {
     // MARK: - Properties
+    private var viewModel = LoginViewModel()
     private let logoView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "apple.logo")
@@ -20,13 +21,18 @@ final class LoginViewController: UIViewController {
         let containerView = AuthenticationInputView(image: UIImage(systemName: "envelope")!, textfield: emailTextField)
         return containerView
     }()
-    private let emailTextField = AuthenticationTextField(placeholder: "Email")
+    private lazy var emailTextField : AuthenticationTextField = {
+        let emailText = AuthenticationTextField(placeholder: "Email")
+        emailText.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
+        return emailText
+    }()
     private lazy var passwordContainer: AuthenticationInputView = {
         let containerView = AuthenticationInputView(image: UIImage(systemName: "lock")!, textfield: passwordTextField)
         return containerView
     }()
-    private let passwordTextField : AuthenticationTextField = {
+    private lazy var passwordTextField : AuthenticationTextField = {
         let textField = AuthenticationTextField(placeholder: "Password")
+        textField.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -52,6 +58,18 @@ final class LoginViewController: UIViewController {
         setupUI()
     }
 }
+// MARK: - Helpers
+extension LoginViewController{
+    @objc private func handleTextChange(_ sender: UITextField){
+        if sender == emailTextField{
+            viewModel.emailTextField = sender.text
+        }else{
+            viewModel.passwordTextField = sender.text
+        }
+        loginButtonStatus()
+    }
+}
+
 
 // MARK: - Helpers
 extension LoginViewController{
@@ -68,6 +86,7 @@ extension LoginViewController{
         stackView.axis = .vertical
         stackView.spacing = 14
         stackView.distribution = .fillEqually
+        
         
     }
     private func layout(){
@@ -95,6 +114,15 @@ extension LoginViewController{
         switchToRegisterationPage.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
+        }
+    }
+    private func loginButtonStatus(){
+        if viewModel.status{
+            loginButton.isEnabled = true
+            loginButton.backgroundColor = .systemBlue
+        }else{
+            loginButton.isEnabled = false
+            loginButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         }
     }
 }
