@@ -50,10 +50,11 @@ final class SignInViewController: UIViewController {
         button.layer.cornerRadius = 7
         return button
     }()
-    private let switchToLoginPage : UIButton = {
+    private lazy var switchToLoginPage : UIButton = {
         let button = UIButton(type: .system)
         let attributedText = NSMutableAttributedString(string: "If you are a member? Go login page", attributes: [.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 14)])
         button.setAttributedTitle(attributedText, for: .normal)
+        button.addTarget(self, action: #selector(handleLoginPage), for: .touchUpInside)
         return button
     }()
     private lazy var stackView = UIStackView()
@@ -68,6 +69,9 @@ final class SignInViewController: UIViewController {
 extension SignInViewController{
     @objc private func handlePhoto(_ sender: UIButton){
         
+    }
+    @objc private func handleLoginPage(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
