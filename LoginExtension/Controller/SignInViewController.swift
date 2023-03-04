@@ -11,6 +11,7 @@ import SnapKit
 
 final class SignInViewController: UIViewController {
     // MARK: - Properties
+    private lazy var viewModel = SignInViewModel()
     private var profileImageView: UIImage?
     private lazy var addCameraButton : UIButton = {
         let button = UIButton(type: .system)
@@ -48,6 +49,7 @@ final class SignInViewController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         button.isEnabled = false
         button.layer.cornerRadius = 7
+        button.addTarget(self, action: #selector(handleRegisterButton), for: .touchUpInside)
         return button
     }()
     private lazy var switchToLoginPage : UIButton = {
@@ -73,6 +75,21 @@ extension SignInViewController{
     @objc private func handleLoginPage(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
     }
+    @objc private func handleRegisterButton(_ sender: UIButton){
+        
+    }
+    @objc private func handleTextChanged(_ sender: UITextField){
+        if sender == emailTextField{
+            viewModel.emailText = sender.text
+        }else if sender == nameTextField{
+            viewModel.nameText = sender.text
+        }else if sender == usernameTextField{
+            viewModel.usernameText = sender.text
+        }else{
+            viewModel.passwordText = sender.text
+        }
+        registerButtonStatus()
+    }
 }
 
 // MARK: - Helpers
@@ -88,6 +105,13 @@ extension SignInViewController{
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.distribution = .fillEqually
+        
+        //Text Changed Event
+        emailTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        nameTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        usernameTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
+        
     }
     private func layout(){
         view.addSubview(stackView)
@@ -111,6 +135,15 @@ extension SignInViewController{
         switchToLoginPage.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
+        }
+    }
+    private func registerButtonStatus(){
+        if viewModel.status{
+            registerButton.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            registerButton.isEnabled = true
+        }else{
+            registerButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            registerButton.isEnabled = false
         }
     }
 }
