@@ -46,10 +46,11 @@ final class LoginViewController: UIViewController {
         button.layer.cornerRadius = 7
         return button
     }()
-    private let switchToRegisterationPage: UIButton = {
+    private lazy var switchToRegisterationPage: UIButton = {
         let button = UIButton(type: .system)
         let attributedText = NSMutableAttributedString(string: "Click to become a member", attributes: [.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 14)])
         button.setAttributedTitle(attributedText, for: .normal)
+        button.addTarget(self, action: #selector(handleSigninScreen), for: .touchUpInside)
         return button
     }()
     // MARK: - Life Cycle
@@ -67,6 +68,10 @@ extension LoginViewController{
             viewModel.passwordTextField = sender.text
         }
         loginButtonStatus()
+    }
+    @objc private func handleSigninScreen(_ sender: UIButton){
+        let registerPage = SignInViewController()
+        self.navigationController?.pushViewController(registerPage, animated: true)
     }
 }
 
