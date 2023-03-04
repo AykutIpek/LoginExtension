@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E9C6D6E829B3619400173D41 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6D6E729B3619400173D41 /* LoginViewModel.swift */; };
+		E9C6D6EA29B36C1D00173D41 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6D6E929B36C1D00173D41 /* SignInViewController.swift */; };
 		E9CF076529B1194B00910A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF076429B1194B00910A10 /* AppDelegate.swift */; };
 		E9CF076929B1194B00910A10 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF076829B1194B00910A10 /* LoginViewController.swift */; };
 		E9CF076E29B1194C00910A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CF076D29B1194C00910A10 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		E9C6D6E729B3619400173D41 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E9C6D6E929B36C1D00173D41 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E9CF076129B1194B00910A10 /* LoginExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginExtension.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9CF076429B1194B00910A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9CF076829B1194B00910A10 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				E9CF076829B1194B00910A10 /* LoginViewController.swift */,
+				E9C6D6E929B36C1D00173D41 /* SignInViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C6D6EA29B36C1D00173D41 /* SignInViewController.swift in Sources */,
 				E9CF078529B1321A00910A10 /* AuthenticationTextField.swift in Sources */,
 				E9CF078129B127D700910A10 /* Extension.swift in Sources */,
 				E9C6D6E829B3619400173D41 /* LoginViewModel.swift in Sources */,
